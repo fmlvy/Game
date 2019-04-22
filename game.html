@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="style.css" type="text/css" rel="stylesheet" />
+<title>King Zuma's Tomb&#33;</title>
+
+    
+    
+    
+<script>
+    //global variable
+        var spelling;
+        var level=1, word;
+        var life =3;
+        var randomized;
+        var count=0;
+        var wordSelected;
+        var randomizedIndex = [];
+        var completeWord;
+        var key = "I";
+ </script>
+</head>
+    
+    
+    <!--the 'spellingGame' function loads !-->
+<body onload="spellingGame(level);">
+<div id="mainContent">
+    <header>
+        <div id="logo">
+            
+        </div>
+        
+        <span id="title">Welcome to <b>King Zuma's Tomb!</b></span>
+        
+    <nav>
+        <ul>
+            <li>Round: <span id="level"></span></li>
+            <li>Keys: <span id="key"></span></li>
+            <li>Lives: <span id="life"></span></li>
+
+
+
+        </ul>
+        <div class="wheel">
+        <img src="images/logo.png" alt="Aztec Wheel" height="350px" width="350px">
+            </div>
+    </nav>
+    </header>
+    <main>
+ 
+    
+        <p class="yourWord">
+            Your Word: <span id="wordToSpell"></span><br>
+
+        </p>
+        
+        <p class="push">
+            <!-- below is the line of letters the user will have to choose from.
+
+            Each span is filled with letters from the acquired word to spell in that round.
+            These are done in an Array !-->
+            
+            Choose your letters!
+            <span id="selectWord"></span>
+            <span id="selectWord2"></span>
+            <span id="selectWord3"></span>
+            <span id="selectWord4"></span>
+            <span id="selectWord5"></span>
+            <span id="selectWord6"></span>
+            <span id="selectWord7"></span>
+            <span id="selectWord8"></span>
+            <span id="selectWord9"></span>
+            <span id="selectWord10"></span>
+            <span id="selectWord11"></span>
+            <span id="selectWord12"></span>
+            <span id="selectWord13"></span>
+            <span id="selectWord14"></span>
+            
+        </p>
+        
+        <!-- the below division is the box the chosen letters will appear in,
+the 'onsubmit' will call the function that checks the answer!-->
+        <div id="spell">
+            <form name="wordForm" id="wordForm" onsubmit='verifySpelling(completeWord); return false;'>
+                <fieldset id="entered" name="entered" ></fieldset>
+                <button type="submit" id="formSubmit">Submit</button>
+            </form>
+            <a href="index.html" id="timer" class="button">Restart the game...</a>
+        </div>
+    </main>
+
+</div>
+<footer>
+   <p>Fionn Mulvey Interactive Activities 2017</p>
+</footer>
+</body>
+</html>
+
+
+
+
+
+<!-- the first line of script i will be using an array to choose what word is for what round!-->
+
+
+<script>
+
+    /* I didn't randomize the words to be spelled. I only randomized the letters needed to spell the word.
+        If I randomized the word to be spelled then it would defeat my level difficulty system.
+        i.e. the user might get [4] in the spelling array in the first round, the most difficult word.
+        so instead i progressed the diffulty with the length of the word in each round and the letters randomize everytime.*/
+   spelling = ["life", "aztecs", "mythology", "tonatiuh", "photosynthesis"];
+    
+    
+    function spellingGame(gameLevel){
+        level = gameLevel;
+        if(level == 1){ //level 1
+            word = spelling[0];//get the word in the array
+            randomized = word.shuffle();
+            document.getElementById('wordToSpell').innerHTML = word;
+            document.getElementById('level').innerHTML = level;
+            document.getElementById('life').innerHTML = life;
+            document.getElementById('key').innerHTML = key;
+            document.getElementById('selectWord').innerHTML = '<button type="button">'+randomized+'</button>';
+
+
+    //Below are buttons with the letters needed to spell the word. The randomized.length is what jumbled the letters
+            //and the passButton onclick places the selection in the user's selection area
+             for(var i =0; i<randomized.length;i++)
+             {
+             document.getElementById('selectWord').innerHTML = '<button type="button" onclick="passButton(this.value);" value="'+randomized[0]+'">'+randomized[0]+'</button>';
+                 document.getElementById('selectWord2').innerHTML = '<button type="button" onclick="passButton(this.value);" value="'+randomized[1]+'">'+randomized[1]+'</button>';
+                 document.getElementById('selectWord3').innerHTML = '<button type="button" onclick="passButton(this.value);" value="'+randomized[2]+'">'+randomized[2]+'</button>';
+                 document.getElementById('selectWord4').innerHTML = '<button type="button" onclick="passButton(this.value);" value="'+randomized[3]+'">'+randomized[3]+'</button>';
+             }
+
+
+        
+        
+        
+        
+        
+        }else if(level == 2){ //level 2
+            word = spelling[1];//get the word in the array
+            randomized = word.shuffle();
+            document.getElementById('wordToSpell').innerHTML = word;
+            document.getElementById('level').innerHTML = level;
+            document.getElementById('life').innerHTML = life;
+            document.getElementById('key').innerHTML = key;
+            document.getElementById('selectWord').innerHTML = '<button type="button">'+randomized+'</button>';
+
+
+            //again the code for randomizing letters, more letters are used as the round progresses.
+            for(var i =0; i<randomized.length;i++){
+                document.getElementById('selectWord').innerHTML = '<button type="button" onclick="passButton(this.value);" value="'+randomized[0]+'">'+randomized[0]+'</button>';
+                document.getElementById('selectWord2').innerHTML = '<button type="button" onclick="passButton(this.value);" value="'+randomized[1]+'">'+randomized[1]+'</button>';
+                document.getElementById('selectWord3').innerHTML = '<button type="button" onclick="passButton(this.value);" value="'+randomized[2]+'">'+randomized[2]+'</button>';
+                document.getElementById('selectWord4').innerHTML = '<button type="button" onclick="passButton(this.value);" value="'+randomized[3]+'">'+randomized[3]+'</button>';
+                document.getElementById('selectWord5').innerHTML = '<button type="button" onclick="passButton(this.value);" value="'+randomized[4]+'">'+randomized[4]+'</button>';
+                document.getElementById('selectWord6').innerHTML = '<button type="button" onclick="passButton(this.value);" value="'+randomized[5]+'">'+randomized[5]+'</button>';    
+            }
+            
+        }else if(level == 3) { //level 3
+            word = spelling[2];//get the word in the array
+            randomized = word.shuffle();
+            document.getElementById('wordToSpell').innerHTML = word;
+            document.getElementById('level').innerHTML = level;
+            document.getElementById('life').innerHTML = life;
+            document.getElementById('selectWord').innerHTML = '<button type="button">' + randomized + '</button>';
+
+
+            for (var i = 0; i < randomized.length; i++) {
+                document.getElementById('selectWord').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[0] + '">' + randomized[0] + '</button>';
+                document.getElementById('selectWord2').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[1] + '">' + randomized[1] + '</button>';
+                document.getElementById('selectWord3').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[2] + '">' + randomized[2] + '</button>';
+                document.getElementById('selectWord4').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[3] + '">' + randomized[3] + '</button>';
+                document.getElementById('selectWord5').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[4] + '">' + randomized[4] + '</button>';
+                document.getElementById('selectWord6').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[5] + '">' + randomized[5] + '</button>';
+                document.getElementById('selectWord7').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[6] + '">' + randomized[6] + '</button>';
+                document.getElementById('selectWord8').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[7] + '">' + randomized[7] + '</button>';
+                document.getElementById('selectWord9').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[8] + '">' + randomized[8] + '</button>';
+                
+
+            }
+        }
+        else if(level == 4) { //level 4
+            word = spelling[3]; //get the word in the array
+            randomized = word.shuffle();
+            document.getElementById('wordToSpell').innerHTML = word;
+            document.getElementById('level').innerHTML = level;
+            document.getElementById('life').innerHTML = life;
+            document.getElementById('selectWord').innerHTML = '<button type="button">' + randomized + '</button>';
+
+
+            for (var i = 0; i < randomized.length; i++) {
+                document.getElementById('selectWord').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[0] + '">' + randomized[0] + '</button>';
+                document.getElementById('selectWord2').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[1] + '">' + randomized[1] + '</button>';
+                document.getElementById('selectWord3').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[2] + '">' + randomized[2] + '</button>';
+                document.getElementById('selectWord4').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[3] + '">' + randomized[3] + '</button>';
+                document.getElementById('selectWord5').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[4] + '">' + randomized[4] + '</button>';
+                document.getElementById('selectWord6').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[5] + '">' + randomized[5] + '</button>';
+                document.getElementById('selectWord7').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[6] + '">' + randomized[6] + '</button>';
+                document.getElementById('selectWord8').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[7] + '">' + randomized[7] + '</button>';
+                
+              
+            }
+        }
+        else if(level == 5) { //level 5
+            word = spelling[4]; //get the word in the array
+            randomized = word.shuffle();
+            document.getElementById('wordToSpell').innerHTML = word;
+            document.getElementById('level').innerHTML = level;
+            document.getElementById('life').innerHTML = life;
+            document.getElementById('selectWord').innerHTML = '<button type="button">' + randomized + '</button>';
+
+
+            for (var i = 0; i < randomized.length; i++) {
+                document.getElementById('selectWord').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[0] + '">' + randomized[0] + '</button>';
+                document.getElementById('selectWord2').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[1] + '">' + randomized[1] + '</button>';
+                document.getElementById('selectWord3').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[2] + '">' + randomized[2] + '</button>';
+                document.getElementById('selectWord4').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[3] + '">' + randomized[3] + '</button>';
+                document.getElementById('selectWord5').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[4] + '">' + randomized[4] + '</button>';
+                document.getElementById('selectWord6').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[5] + '">' + randomized[5] + '</button>';
+                document.getElementById('selectWord7').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[6] + '">' + randomized[6] + '</button>';
+                document.getElementById('selectWord8').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[7] + '">' + randomized[7] + '</button>';
+                document.getElementById('selectWord9').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[8] + '">' + randomized[8] + '</button>';
+                document.getElementById('selectWord10').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[9] + '">' + randomized[9] + '</button>';
+                document.getElementById('selectWord11').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[10] + '">' + randomized[10] + '</button>';
+                document.getElementById('selectWord12').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[11] + '">' + randomized[11] + '</button>';
+                document.getElementById('selectWord13').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[12] + '">' + randomized[12] + '</button>';
+                document.getElementById('selectWord14').innerHTML = '<button type="button" onclick="passButton(this.value);" value="' + randomized[13] + '">' + randomized[13] + '</button>';
+             
+            }
+        }
+    }
+
+                                       
+    
+    
+
+    //This is for randomly shuffling the letters
+    String.prototype.shuffle = function() {
+        return this.split(" ").map(function(word, i) {
+            var a = word.split(""),
+                    n = a.length;
+
+            for (var i = n - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tmp = a[i];
+                a[i] = a[j];
+                a[j] = tmp;
+            }
+            return a.join("");
+        }).join(" ");
+    }
+    
+    
+    
+    
+
+    //This function is called when the user selects a letter. This carries the letter into the box so the user sees what he/she has selected and into the variable that stores the selected letters before they click submit 
+    function passButton (selected){
+        randomizedIndex.push(selected);
+        document.getElementById('entered').innerHTML = randomizedIndex.join("");
+        completeWord = randomizedIndex.join("");
+        return false;
+    }
+
+    
+    
+    
+    
+    // The below function is the checking/ scoring system of my game
+    function verifySpelling(pass){
+       
+        
+        
+        if(level == 1 && life > 0){
+            if(pass == spelling[0]){
+                level = 2;//progress to next round
+                document.getElementById('level').innerHTML = level;
+                while(randomizedIndex.length>0){
+                    randomizedIndex.pop();
+                    document.getElementById('entered').innerHTML = randomizedIndex.join("");
+                    completeWord = randomizedIndex.join("");
+                    spellingGame(level);
+                }
+                document.getElementById('life').innerHTML = life;
+                document.getElementById('key').innerHTML = key+'I';
+            }else{
+                life = life -1;
+                document.getElementById('life').innerHTML = life;
+                while(randomizedIndex.length>0){
+                    randomizedIndex.pop();
+                    document.getElementById('entered').innerHTML = randomizedIndex.join("");
+                    completeWord = randomizedIndex.join("");
+                }
+            }
+            
+            
+            
+
+        }else if(level == 2 && life > 0){
+            if(pass == spelling[1]){
+                level = 3;
+                document.getElementById('level').innerHTML = level;
+                while(randomizedIndex.length>0){
+                    randomizedIndex.pop();
+                    document.getElementById('entered').innerHTML = randomizedIndex.join("");
+                    completeWord = randomizedIndex.join("");
+                    spellingGame(level);
+                }
+                document.getElementById('life').innerHTML = life;
+                document.getElementById('key').innerHTML = key+'II';
+            }
+            
+            else{
+                life = life -1;
+                document.getElementById('life').innerHTML = life;
+                while(randomizedIndex.length>0){
+                    randomizedIndex.pop();
+                    document.getElementById('entered').innerHTML = randomizedIndex.join("");
+                    completeWord = randomizedIndex.join("");
+                }
+            }
+        }else if(level == 3 && life > 0){
+            if(pass == spelling[2]){
+                level = 4;
+                document.getElementById('level').innerHTML = level;
+                while(randomizedIndex.length>0){
+                    randomizedIndex.pop();
+                    document.getElementById('entered').innerHTML = randomizedIndex.join("");
+                    completeWord = randomizedIndex.join("");
+                    spellingGame(level);
+                }
+                document.getElementById('life').innerHTML = life;
+
+                document.getElementById('key').innerHTML = key+'III';
+            }else{
+                life = life -1;
+                document.getElementById('life').innerHTML = life;
+                while(randomizedIndex.length>0){
+                    randomizedIndex.pop();
+                    document.getElementById('entered').innerHTML = randomizedIndex.join("");
+                    completeWord = randomizedIndex.join("");
+                }
+            }
+        }
+        else if(level == 4 && life > 0){
+            if(pass == spelling[3]){
+                level = 5;
+                document.getElementById('level').innerHTML = level;
+                while(randomizedIndex.length>0){
+                    randomizedIndex.pop();
+                    document.getElementById('entered').innerHTML = randomizedIndex.join("");
+                    completeWord = randomizedIndex.join("");
+                    spellingGame(level);
+                    
+                }
+                document.getElementById('life').innerHTML = life;
+                
+                document.getElementById('key').innerHTML = key+'IIII';
+            }else{
+                life = life -1;
+                document.getElementById('life').innerHTML = life;
+                while(randomizedIndex.length>0){
+                    randomizedIndex.pop();
+                    document.getElementById('entered').innerHTML = randomizedIndex.join("");
+                    completeWord = randomizedIndex.join("");
+                }
+            }
+        }
+        else if(level == 5 && life > 0){
+            if(pass == spelling[4]){
+                level = 5;
+                
+                window.open('winner.html','_self');
+
+                alert("Congrats! You have opened King Zuma's Tomb!");
+                document.getElementById('life').innerHTML = life;
+            }else{
+                life = life -1;
+                document.getElementById('life').innerHTML = life;
+                while(randomizedIndex.length>0){
+                    randomizedIndex.pop();
+                    document.getElementById('entered').innerHTML = randomizedIndex.join("");
+                    completeWord = randomizedIndex.join("");
+                }
+            }
+            
+            
+        }else{  //end game
+            alert("You Loose! Game Over!");
+            window.reload()
+        }
+
+    }
+
+    // Below is my timer for the game.
+    var timerButton = document.getElementById("timer");
+    var counter = 60;
+    var newElement = document.createElement("p");
+    newElement.innerHTML = "You have 60 seconds to complete the game!";
+    var id;
+
+    timerButton.parentNode.replaceChild(newElement, timerButton);
+
+    id = setInterval(function() {
+        counter--;
+    //Below is the outcome of the finished timer
+        if(counter < 0) {
+            newElement.parentNode.replaceChild(timerButton, newElement);
+            document.getElementById('formSubmit').innerHTML = '<a href="index.html" id="timer" class="button">Restart the game</a>';
+            clearInterval(id);
+        } else {
+            newElement.innerHTML = "You have " + counter.toString() + " seconds to complete the game.";
+        }
+    }, 1000);
+</script>
